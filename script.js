@@ -2,6 +2,12 @@ const calculator = document.querySelector(".calculator");
 const number = document.querySelector(".number-container");
 
 let value = 0;
+let first = "";
+let second = "";
+let current = "";
+let clearNextNumber = false;
+
+const operator = ["+", "-", "*", "/"];
 
 const buttonCalculator = [
   "7",
@@ -31,4 +37,35 @@ function genCalculatorGrid() {
   });
 }
 
+function init() {
+  screen.innerText = defaultValue;
+}
+
 genCalculatorGrid();
+
+init();
+
+function clear() {
+  first = "";
+  second = "";
+  current = "";
+  updateDisplay("0");
+}
+
+function removeLastDigit() {
+  if (current === "") {
+    first = first.slice(0, -1);
+    updateDisplay(first || "0");
+  } else {
+    second = second.slice(0, -1);
+    updateDisplay(second || "0");
+  }
+}
+
+function handleOperator(value) {
+  if (current !== "" && second !== "") {
+    evaluate();
+  }
+
+  current = value;
+}
